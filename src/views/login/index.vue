@@ -1,7 +1,7 @@
 <template>
   <div class='login'>
     <el-card class="box-card">
-      <img src="../../assets/logo_index.png" alt="">
+      <img src="../../assets/logo_index.png" alt="黑马头条">
       <el-form ref="form" :model="formData" :rules="rules" :status-icon="true">
         <el-form-item prop="mobile">
           <el-input v-model="formData.mobile" placeholder="请输入手机号"></el-input>
@@ -30,7 +30,20 @@ export default {
       this.$refs.form.validate((isOk) => {
         if (isOk) {
           // 如果一切校验通过 需要调用登录接口
+          this.loginByUsername()
         }
+      })
+    },
+    // 根据用户名及验证码登录
+    // 如果数据不能清空
+    loginByUsername () {
+      this.$http.post('/authorizations', this.formData).then(result => {
+        this.$message({
+          message: '登录成功',
+          type: 'success'
+        })
+      }).catch(err => {
+        alert(err)
       })
     }
   },
