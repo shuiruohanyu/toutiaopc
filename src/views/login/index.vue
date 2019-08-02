@@ -38,10 +38,7 @@ export default {
     // 如果数据不能清空
     loginByUsername () {
       this.$http.post('/authorizations', this.formData).then(result => {
-        this.$message({
-          message: '登录成功',
-          type: 'success'
-        })
+        this.$router.push({ name: 'home' })
       }).catch(err => {
         alert(err)
       })
