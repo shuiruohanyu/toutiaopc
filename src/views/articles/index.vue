@@ -7,7 +7,7 @@
         <el-form-item label="文章状态" label-width="100px">
           <a
             @click="changeStatus(item.value)"
-            class="state-label"
+            :class="['state-label', searchTool.status === item.value ? 'active' : '' ]"
             href="javascript:void(0)"
             v-for="item in state"
             :key="item.value"
@@ -15,12 +15,7 @@
         </el-form-item>
         <el-form-item label="频道列表" label-width="100px">
           <el-select @change="queryData" v-model="searchTool.channel_id" placeholder="请选择">
-            <el-option
-              v-for="item in channels"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
+            <el-option v-for="item in channels" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="时间选择" label-width="100px">
@@ -67,7 +62,7 @@
       <!-- 加入分页组件 -->
       <div class="pagination">
         <el-pagination
-          :disabled="pageDisabled"
+          :disabled="pageInfo.pageDisabled"
           @current-change="changePage"
           :current-page="pageInfo.page"
           :page-size="pageInfo.pageNum"
@@ -88,7 +83,7 @@ export default {
       state: [
         {
           label: '全部',
-          value: 5
+          value: null
         },
         {
           label: '草稿',
@@ -107,20 +102,11 @@ export default {
           value: 3
         }
       ],
-      channels: [
-        {
-          value: 'c++',
-          label: 'c++'
-        },
-        {
-          value: 'java',
-          label: 'java'
-        }
-      ],
+      channels: [],
       searchTool: {
         channel_id: null,
         dateRange: null,
-        channel: null
+        status: null
       },
       articles: [],
       pageInfo: {
@@ -134,7 +120,8 @@ export default {
   },
   // 请求列表数据
   created () {
-    this.loadData()
+    this.queryChannels() // 获取频道数据
+    this.loadData() // 默认拉取数据
   },
   methods: {
     delItem (id) {
@@ -182,6 +169,15 @@ export default {
       params.status = this.searchTool.status
       this.loadData(params)
     },
+    // 查询频道数据
+    queryChannels () {
+      this.$http({
+        methods: 'GET',
+        url: '/channels'
+      }).then(result => {
+        this.channels = result.data.channels // 将频道数据传给当前的数据对象
+      })
+    },
     // 状态改变
     changeStatus (status) {
       this.searchTool.status = status // 状态赋值
@@ -227,6 +223,9 @@ export default {
     padding: 50px 20px;
     .state-label {
       margin-left: 20px;
+    }
+    .active {
+      color: #3296fa;
     }
   }
   .cover-info {
