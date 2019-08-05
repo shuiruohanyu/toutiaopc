@@ -20,7 +20,7 @@ const router = new Router({
       children: [
         {
           path: 'articles',
-          component: () => import('./views/articles')
+          component: () => import('../views/articles')
         }
       ]
     }
