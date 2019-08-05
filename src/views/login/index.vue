@@ -41,7 +41,7 @@ export default {
         .post('/authorizations', this.formData)
         .then(({ data: userInfo }) => {
           // 将用户信息放入到前端缓存中
-          window.localStorage.setItem('user-info', userInfo)
+          window.localStorage.setItem('user-info', JSON.stringify(userInfo))
           this.$router.push({ name: 'home' })
         })
     }
