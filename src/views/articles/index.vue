@@ -6,6 +6,7 @@
         <!-- 多状态 -->
         <el-form-item label="文章状态" label-width="100px">
           <a
+            @click="changeStatus(item.value)"
             class="state-label"
             href="javascript:void(0)"
             v-for="item in state"
@@ -13,7 +14,7 @@
           >{{item.label}}</a>
         </el-form-item>
         <el-form-item label="频道列表" label-width="100px">
-          <el-select v-model="searchTool.channel" placeholder="请选择">
+          <el-select @change="queryData" v-model="searchTool.channel_id" placeholder="请选择">
             <el-option
               v-for="item in channels"
               :key="item.value"
@@ -24,6 +25,7 @@
         </el-form-item>
         <el-form-item label="时间选择" label-width="100px">
           <el-date-picker
+            @change="queryData"
             v-model="searchTool.dateRange"
             type="datetimerange"
             range-separator="至"
@@ -34,8 +36,8 @@
       </el-form>
     </div>
     <el-card>
-      <div slot="header" class="list-header">共找到{{1000}}条内容</div>
-      <el-table :data="articles">
+      <div slot="header" class="list-header">共找到{{pageInfo.total}}条内容</div>
+      <el-table :data="articles" v-loading="loading">
         <el-table-column>
           <!-- 表格列默认只能输出文本，如果需要自定义里面的内容，则需要 -->
           <!--
@@ -64,7 +66,16 @@
       </el-table>
       <!-- 加入分页组件 -->
       <div class="pagination">
-        <el-pagination class="article-page" background layout="prev, pager, next" :total="1000"></el-pagination>
+        <el-pagination
+          :disabled="pageDisabled"
+          @current-change="changePage"
+          :current-page="pageInfo.page"
+          :page-size="pageInfo.pageNum"
+          class="article-page"
+          background
+          layout="prev, pager, next"
+          :total="pageInfo.total"
+        ></el-pagination>
       </div>
     </el-card>
   </el-card>
@@ -107,10 +118,18 @@ export default {
         }
       ],
       searchTool: {
-        channel: null,
-        dateRange: null
+        channel_id: null,
+        dateRange: null,
+        channel: null
       },
-      articles: []
+      articles: [],
+      pageInfo: {
+        page: 1, // 第几页
+        pageNum: 10, // 每页显示多少条
+        total: 0, // 共多少条记录
+        pageDisabled: false // 是否禁用分页组件
+      },
+      loading: false
     }
   },
   // 请求列表数据
@@ -128,10 +147,45 @@ export default {
       })
     },
     // 请求数据
-    loadData () {
-      this.$http.get('/articles').then(result => {
+    loadData (params) {
+      this.pageInfo.pageDisabled = true
+      this.loading = true
+      this.$http({
+        methods: 'GET',
+        url: 'articles',
+        params: {
+          page: this.pageInfo.page,
+          per_page: this.pageInfo.pageNum,
+          ...params
+        }
+      }).then(result => {
         this.articles = result.data.results
+        this.pageInfo.total = result.data.total_count // 将总条数赋值给当前数据对象
+        this.pageInfo.pageDisabled = false
+        this.loading = false
       })
+    },
+    changePage (newPage) {
+      this.pageInfo.page = newPage // 将最新的页码赋值给数据对象
+      this.loadData()
+    },
+    // 查询条件改变 需要查询数据
+    queryData () {
+      let params = {} // 拼接参数
+      if (this.searchTool.dateRange && this.searchTool.dateRange.length) {
+        params = {
+          begin_pubdate: this.searchTool.dateRange[0],
+          end_pubdate: this.searchTool.dataRange[1]
+        }
+      }
+      params.channel_id = this.searchTool.channel_id
+      params.status = this.searchTool.status
+      this.loadData(params)
+    },
+    // 状态改变
+    changeStatus (status) {
+      this.searchTool.status = status // 状态赋值
+      this.queryData() // 查询数据
     }
   },
   // 定义过滤器
