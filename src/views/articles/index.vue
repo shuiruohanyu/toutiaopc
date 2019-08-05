@@ -68,7 +68,6 @@
           @current-change="changePage"
           :current-page="pageInfo.page"
           :page-size="pageInfo.pageNum"
-          class="article-page"
           background
           layout="prev, pager, next"
           :total="pageInfo.total"
