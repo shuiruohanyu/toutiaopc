@@ -10,7 +10,7 @@ const router = new Router({
       component: () => import('../views/login')
     },
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: layout
     }
