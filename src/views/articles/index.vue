@@ -1,6 +1,8 @@
 <template>
   <el-card class="articles-list">
-    <div class="articles-title">全部图文</div>
+    <content-header>
+      <template slot="title">全部图文</template>
+    </content-header>
     <div class="articles-tool">
       <el-form>
         <!-- 多状态 -->
@@ -210,14 +212,6 @@ export default {
 <style lang='less' scoped>
 .articles-list {
   min-height: 100%;
-  .articles-title {
-    background-color: #fff;
-    height: 60px;
-    line-height: 60px;
-    font-size: 16px;
-    padding-left: 20px;
-    border-bottom: 1px dashed #ccc;
-  }
   .articles-tool {
     background-color: #fff;
     padding: 50px 20px;
