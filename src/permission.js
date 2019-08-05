@@ -9,7 +9,8 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+// 判断用户是否登录
 const checkIsLogin = function () {
-  let token = window.localStorage.getItem('pc-token')
-  return !!token
+  let userInfo = window.localStorage.getItem('user-info')
+  return userInfo && userInfo.token
 }

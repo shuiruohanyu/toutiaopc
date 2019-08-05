@@ -39,12 +39,10 @@ export default {
     loginByUsername () {
       this.$http
         .post('/authorizations', this.formData)
-        .then(({ data: { token } }) => {
-          window.localStorage.setItem('pc-token', token)
+        .then(({ data: userInfo }) => {
+          // 将用户信息放入到前端缓存中
+          window.localStorage.setItem('user-info', userInfo)
           this.$router.push({ name: 'home' })
-        })
-        .catch(err => {
-          alert(err)
         })
     }
   },
