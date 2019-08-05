@@ -7,7 +7,7 @@
       <el-header>
         <layout-header></layout-header>
       </el-header>
-      <el-main>
+      <el-main class="main">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -26,5 +26,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang='less' >
+.main {
+  padding: 0 !important;
+  background-color: #e7e7e9;
+}
 </style>

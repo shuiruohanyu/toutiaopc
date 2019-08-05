@@ -13,9 +13,9 @@ axios.defaults.transformResponse = [
 axios.interceptors.request.use(
   config => {
     // 在每个请求里面加入token
-    let userInfo = window.localStorage.getItem('user_info')
+    let userInfo = window.localStorage.getItem('user-info')
     userInfo = userInfo ? JSON.parse(userInfo) : null
-    userInfo && (config.headers.Authorization = `Bearer  ${userInfo.token}`)
+    userInfo && (config.headers.Authorization = `Bearer ${userInfo.token}`)
     return config // 必须返回配置文件
   },
   error => {
