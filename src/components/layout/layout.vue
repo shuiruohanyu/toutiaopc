@@ -4,7 +4,9 @@
       <layout-slider></layout-slider>
     </el-aside>
     <el-container>
-      <el-header>头部</el-header>
+      <el-header>
+        <layout-header></layout-header>
+      </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -14,10 +16,12 @@
 
 <script>
 import layoutSlider from './layout-slider.vue'
+import layoutHeader from './layout-header.vue'
 export default {
   name: 'layoutSlider',
   components: {
-    'layout-slider': layoutSlider
+    'layout-slider': layoutSlider,
+    'layout-header': layoutHeader
   }
 }
 </script>
