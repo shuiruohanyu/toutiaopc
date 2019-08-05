@@ -25,6 +25,14 @@ const router = new Router({
         {
           path: 'publish',
           component: () => import('../views/publish')
+        },
+        {
+          path: 'comment',
+          component: () => import('../views/comment')
+        },
+        {
+          path: 'material',
+          component: () => import('../views/material')
         }
       ]
     }
