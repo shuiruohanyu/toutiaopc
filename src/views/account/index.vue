@@ -69,9 +69,10 @@ export default {
         method: 'patch',
         url: '/user/profile',
         data: this.userInfo
-      }).then(result =>
+      }).then(result => {
         this.$message({ type: 'success', message: '修改成功' })
-      )
+        this.$store.commit('updateUserInfo', this.userInfo)
+      })
     },
     handleUpload (uploadConfig) {
       const formData = new FormData()
@@ -82,6 +83,7 @@ export default {
         data: formData
       }).then(result => {
         this.userInfo.photo = result.data.photo
+        this.$store.commit('updateUserInfo', this.userInfo)
       })
     }
   },
