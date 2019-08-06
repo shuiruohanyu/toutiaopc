@@ -19,6 +19,10 @@ const router = new Router({
       component: layout,
       children: [
         {
+          path: '/',
+          component: () => import('../views/home')
+        },
+        {
           path: 'articles',
           component: () => import('../views/articles')
         },
@@ -55,6 +59,10 @@ const router = new Router({
           component: () => import('../views/fans/fanslist')
         }
       ]
+    },
+    {
+      path: '*',
+      component: () => import('../views/404.vue')
     }
   ]
 })
