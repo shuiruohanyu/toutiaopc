@@ -11,7 +11,7 @@
       active-text-color="#ffd04b"
     >
       <el-menu-item index="/">首页</el-menu-item>
-      <el-submenu>
+      <el-submenu index="/home">
         <template slot="title">
           <span>内容管理</span>
         </template>
@@ -22,7 +22,7 @@
           <el-menu-item index="/home/material">素材列表</el-menu-item>
         </template>
       </el-submenu>
-      <el-submenu index="fans">
+      <el-submenu index="/home/twlist">
         <template slot="title">
           <span>粉丝管理</span>
         </template>
@@ -33,7 +33,7 @@
           <el-menu-item index="/home/fanslist">粉丝列表</el-menu-item>
         </template>
       </el-submenu>
-      <el-menu-item index="account">账户信息</el-menu-item>
+      <el-menu-item index="/home/account">账户信息</el-menu-item>
     </el-menu>
   </div>
 </template>
