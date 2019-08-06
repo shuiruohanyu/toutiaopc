@@ -37,6 +37,22 @@ const router = new Router({
         {
           path: 'account',
           component: () => import('../views/account')
+        },
+        {
+          path: 'twlist',
+          component: () => import('../views/fans/twlist')
+        },
+        {
+          path: 'fansinfo',
+          component: () => import('../views/fans/fansinfo')
+        },
+        {
+          path: 'fansnew',
+          component: () => import('../views/fans/fansnew')
+        },
+        {
+          path: 'fanslist',
+          component: () => import('../views/fans/fanslist')
         }
       ]
     }

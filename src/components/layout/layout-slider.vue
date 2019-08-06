@@ -27,10 +27,10 @@
           <span>粉丝管理</span>
         </template>
         <template>
-          <el-menu-item index="twlist">图文数据</el-menu-item>
-          <el-menu-item index="fansinfo">粉丝概况</el-menu-item>
-          <el-menu-item index="fansnew">粉丝画像</el-menu-item>
-          <el-menu-item index="fanslist">粉丝列表</el-menu-item>
+          <el-menu-item index="/home/twlist">图文数据</el-menu-item>
+          <el-menu-item index="/home/fansinfo">粉丝概况</el-menu-item>
+          <el-menu-item index="/home/fansnew">粉丝画像</el-menu-item>
+          <el-menu-item index="/home/fanslist">粉丝列表</el-menu-item>
         </template>
       </el-submenu>
       <el-menu-item index="account">账户信息</el-menu-item>
