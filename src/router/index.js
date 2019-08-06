@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import layout from '../components/layout/layout.vue'
+import home from '../views/home'
 Vue.use(Router)
 const router = new Router({
   routes: [
@@ -19,8 +20,8 @@ const router = new Router({
       component: layout,
       children: [
         {
-          path: '/',
-          component: () => import('../views/home')
+          path: '',
+          component: home
         },
         {
           path: 'articles',
@@ -44,11 +45,11 @@ const router = new Router({
         },
         {
           path: 'twlist',
-          component: () => import('../views/fans/twlist')
+          component: () => import('../views/fans/fansnew')
         },
         {
           path: 'fansinfo',
-          component: () => import('../views/fans/fansinfo')
+          component: () => import('../views/fans/fansnew')
         },
         {
           path: 'fansnew',
@@ -56,7 +57,7 @@ const router = new Router({
         },
         {
           path: 'fanslist',
-          component: () => import('../views/fans/fanslist')
+          component: () => import('../views/fans/fansnew')
         }
       ]
     },
