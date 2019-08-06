@@ -72,6 +72,7 @@ export default {
           images: ['', '', ''] // 封面
         }
       },
+      articleId: null, // 当前的文章标识
       channels: [],
       showUploadDialog: false,
       changeImgIndex: 0, // 设置封面的索引 只针对3图时
@@ -88,6 +89,17 @@ export default {
   },
   created () {
     this.loadChannels() // 拉取频道数据
+    const { articleId } = this.$route.params
+    if (articleId) {
+      // 修改状态
+      this.articleId = articleId // 赋值给当前的数据对象
+      this.$http({
+        method: 'get',
+        url: `/articles/${articleId}`
+      }).then(result => {
+        this.articleForm = result.data
+      })
+    }
   },
   methods: {
     selectImgProps (url) {
@@ -125,7 +137,7 @@ export default {
       })
     },
     // 发布文章
-    pubArticle (draft) {
+    pubArticle (event, draft) {
       if (
         !this.articleForm.title ||
         this.articleForm.title.length < 5 ||
@@ -172,7 +184,7 @@ export default {
     },
     // 存入草稿 不需要校验
     saveArticle () {
-      this.pubArticle(true) // 存为草稿
+      this.pubArticle(null, true) // 存为草稿
     }
   }
 }

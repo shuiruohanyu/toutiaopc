@@ -57,7 +57,7 @@
         <el-table-column>
           <template slot-scope="item">
             <i @click="delItem(item.row.id)" class="el-icon-delete operate">删除</i>
-            <i class="el-icon-edit operate">修改</i>
+            <i @click="editItem(item.row.id)" class="el-icon-edit operate">修改</i>
           </template>
         </el-table-column>
       </el-table>
@@ -125,11 +125,17 @@ export default {
     this.loadData() // 默认拉取数据
   },
   methods: {
+    editItem (id) {
+      this.$router.push(`/home/publish/${id}`)
+    },
     delItem (id) {
       // 删除方法
       // 如果点击了确定 则会进入到then
       this.$confirm('确定删除此条记录?', '提示').then(() => {
-        this.$http.delete(`/articles/${id}`).then(result => {
+        this.$http({
+          method: 'delete',
+          url: `/articles/${id}`
+        }).then(result => {
           this.loadData() // 刷新页面数据
         })
       })

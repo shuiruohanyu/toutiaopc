@@ -23,7 +23,8 @@ const router = new Router({
           component: () => import('../views/articles')
         },
         {
-          path: 'publish',
+          // 动态路由参数
+          path: 'publish/:articleId',
           component: () => import('../views/publish')
         },
         {
