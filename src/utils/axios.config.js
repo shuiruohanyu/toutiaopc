@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 // 由于后端数据返回的id为超大类型的数据 所以需要统一处理下  jsonBig是个库
 axios.defaults.transformResponse = [
   function (data) {
-    return jsonBig.parse(data)
+    return data ? jsonBig.parse(data) : null
   }
 ]
 axios.interceptors.request.use(

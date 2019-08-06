@@ -16,10 +16,10 @@
           <span>内容管理</span>
         </template>
         <template>
-          <el-menu-item index="publish">发布文章</el-menu-item>
-          <el-menu-item index="articles">内容列表</el-menu-item>
-          <el-menu-item index="comment">评论列表</el-menu-item>
-          <el-menu-item index="material">素材列表</el-menu-item>
+          <el-menu-item index="/home/publish">发布文章</el-menu-item>
+          <el-menu-item index="/home/articles">内容列表</el-menu-item>
+          <el-menu-item index="/home/comment">评论列表</el-menu-item>
+          <el-menu-item index="/home/material">素材列表</el-menu-item>
         </template>
       </el-submenu>
       <el-submenu index="fans">
