@@ -3,7 +3,7 @@
     <el-tab-pane label="全部素材" name="material">
       <div class="material-list">
         <div class="img-item" v-for="item in list" :key="item.id">
-          <img :src="item.url" alt />
+          <img @click="selectImg(item.url)" :src="item.url" alt />
         </div>
       </div>
       <div class="pagination" style="text-align:center">
@@ -35,7 +35,12 @@ export default {
       }
     }
   },
+  props: ['selectImgProps'],
   methods: {
+    selectImg (url) {
+      //  传入url
+      this.selectImgProps && this.selectImgProps(url)
+    },
     changePage (newPage) {
       this.pageInfo.page = newPage
       //  请求数据
