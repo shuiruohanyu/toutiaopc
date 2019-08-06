@@ -1,7 +1,7 @@
 <template>
   <el-row class="app-header">
-    <el-col :span="14">江苏传智播客教育科技股份有限公司</el-col>
-    <el-col :span="4" :offset="6">
+    <el-col :span="20">江苏传智播客教育科技股份有限公司</el-col>
+    <el-col :span="4" style="text-align:right">
       <el-dropdown>
         <span class="el-dropdown-link">
           <img :src="userInfo.photo" alt />
