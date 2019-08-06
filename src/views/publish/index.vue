@@ -125,8 +125,12 @@ export default {
       })
     },
     // 发布文章
-    pubArticle () {
-      if (!this.articleForm.title || this.articleForm.title.length < 5) {
+    pubArticle (draft) {
+      if (
+        !this.articleForm.title ||
+        this.articleForm.title.length < 5 ||
+        this.articleForm.title.length > 30
+      ) {
         this.$message({ type: 'warning', message: '文章标题至少五个字符' })
         return
       }
@@ -161,13 +165,15 @@ export default {
         method: 'post',
         url: '/articles',
         data: this.articleForm,
-        params: { draft: false } // 是否为草稿
+        params: { draft: draft } // 是否为草稿
       }).then(result => {
         this.$router.push({ path: '/home/articles' })
       })
     },
-    // 存入草稿
-    saveArticle () {}
+    // 存入草稿 不需要校验
+    saveArticle () {
+      this.pubArticle(true) // 存为草稿
+    }
   }
 }
 </script>
