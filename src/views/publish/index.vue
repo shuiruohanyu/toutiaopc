@@ -165,7 +165,7 @@ export default {
         method: 'post',
         url: '/articles',
         data: this.articleForm,
-        params: { draft: draft } // 是否为草稿
+        params: { draft: !!draft } // 是否为草稿
       }).then(result => {
         this.$router.push({ path: '/home/articles' })
       })
