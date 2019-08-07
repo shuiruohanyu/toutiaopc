@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import layout from '../components/layout/layout.vue'
-import home from '../views/home'
 Vue.use(Router)
 const router = new Router({
   routes: [
@@ -16,19 +15,20 @@ const router = new Router({
     },
     {
       path: '/home',
-      name: 'home',
+      // 嵌套路由 不能用name
       component: layout,
       children: [
         {
+          name: 'home',
           path: '',
-          component: home
+          component: () => import('../views/home')
         },
         {
           path: 'articles',
           component: () => import('../views/articles')
         },
         {
-          path: 'publish',
+          path: 'publish/:articleId?',
           component: () => import('../views/publish')
         },
         {

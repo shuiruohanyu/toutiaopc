@@ -127,7 +127,7 @@ export default {
   methods: {
     editItem (id) {
       // 采用query传值的方式 传值
-      this.$router.push(`/home/publish?articleId=${id}`)
+      this.$router.push(`/home/publish/${id}`)
     },
     delItem (id) {
       // 删除方法

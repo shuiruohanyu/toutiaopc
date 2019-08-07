@@ -89,7 +89,7 @@ export default {
   },
   created () {
     this.loadChannels() // 拉取频道数据
-    const { articleId } = this.$route.query
+    const { articleId } = this.$route.params
     if (articleId) {
       // 修改状态
       this.articleId = articleId // 赋值给当前的数据对象
