@@ -1,6 +1,9 @@
 <template>
   <el-row class="app-header">
-    <el-col :span="20">江苏传智播客教育科技股份有限公司</el-col>
+    <el-col :span="20">
+      <i @click='collaspse = !collaspse' :class="{'el-icon-s-fold': collaspse, 'el-icon-s-unfold': !collaspse}"></i>
+      江苏传智播客教育科技股份有限公司
+      </el-col>
     <el-col :span="4" style="text-align:right">
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -26,7 +29,18 @@
 
 <script>
 import { mapState } from 'vuex'
+import event from '../../utils/event'
 export default {
+  data () {
+    return {
+      collaspse: true
+    }
+  },
+  watch: {
+    collaspse () {
+      event.$emit('collapseChange')
+    }
+  },
   // 从vuex中获取用户信息
   computed: {
     ...mapState({
