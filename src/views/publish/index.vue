@@ -76,7 +76,8 @@ export default {
       channels: [],
       showUploadDialog: false,
       changeImgIndex: 0, // 设置封面的索引 只针对3图时
-      defaultImg: require('../../assets/pic_bg.png')
+      defaultImg: require('../../assets/pic_bg.png'),
+      dataDirty: false
     }
   },
   // 计算属性
@@ -100,8 +101,18 @@ export default {
         this.articleForm = result.data
       })
     }
+    this.watchForm()
   },
   methods: {
+    // 监控formdata变化
+    watchForm () {
+      const unWatch = this.$watch('articleForm', () => {
+        this.dataDirty = true // 设置数据标记
+        unWatch()
+      }, {
+        deep: true
+      })
+    },
     selectImgProps (url) {
       // 传入url
       if (url) {
@@ -185,6 +196,22 @@ export default {
     // 存入草稿 不需要校验
     saveArticle () {
       this.pubArticle(null, true) // 存为草稿
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    if (this.dataDirty) {
+      // 说明有脏数据 需要保存
+      const isLeave = window.confirm('您有数据未保存,确定离开?')
+      if (isLeave) {
+        // 需要保存
+        return next()
+      } else {
+        return next(false)
+      }
+    } else {
+      next()
     }
   }
 }
