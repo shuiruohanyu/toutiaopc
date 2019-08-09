@@ -3,6 +3,9 @@
     <content-header>
       <template slot="title">素材管理</template>
     </content-header>
+    <el-upload :show-file-list="false" style='position:absolute;right:40px;margin-top:10px ' :http-request="uploadMaterial">
+      <el-button  type='primary' size='small'>上传图片</el-button>
+    </el-upload>
     <el-radio-group size="small" v-model="activeSelect" style="margin-top:20px" @change="changeTab">
       <el-radio-button label="all">全部</el-radio-button>
       <el-radio-button label="collect">收藏</el-radio-button>
@@ -51,6 +54,23 @@ export default {
     }
   },
   methods: {
+    // 上传素材
+    uploadMaterial (params) {
+      const formData = new FormData()
+      formData.append('image', params.file)
+      this.$http({
+        method: 'post',
+        url: '/user/images',
+        data: formData
+      }).then(result => {
+        this.pageInfo.page = 1
+        this.loadAllMaterial({
+          page: 1,
+          per_page: this.pageInfo.pageNum,
+          collect: false
+        })
+      })
+    },
     //   收藏
     collect (item) {
       this.$http({
