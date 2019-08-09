@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activeName" >
     <el-tab-pane label="全部素材" name="material">
       <div class="material-list">
         <div class="img-item" v-for="item in list" :key="item.id">
@@ -18,7 +18,18 @@
         ></el-pagination>
       </div>
     </el-tab-pane>
-    <el-tab-pane label="上传图片" name="upload">上传图片</el-tab-pane>
+    <el-tab-pane label="上传图片" name="upload">
+      <el-upload
+        class="avatar-uploader"
+        :show-file-list="false"
+        :http-request="handleUpload"
+          list-type="picture-card"
+        action=''
+      >
+        <i class="el-icon-plus"></i>
+
+      </el-upload>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -37,6 +48,17 @@ export default {
   },
   props: ['selectImgProps'],
   methods: {
+    handleUpload (params) {
+      const formData = new FormData()
+      formData.append('image', params.file)
+      this.$http({
+        method: 'post',
+        url: '/user/images',
+        data: formData
+      }).then(result => {
+        this.selectImgProps && this.selectImgProps(result.data.url)
+      })
+    },
     selectImg (url) {
       //  传入url
       this.selectImgProps && this.selectImgProps(url)

@@ -46,7 +46,7 @@
           <img class="avatar" v-if="userInfo.photo" :src="userInfo.photo">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>-->
-        <el-upload class="avatar-uploader" :show-file-list="false" :http-request="handleUpload">
+        <el-upload action="" class="avatar-uploader" :show-file-list="false" :http-request="handleUpload">
           <img class="avatar" v-if="userInfo.photo" :src="userInfo.photo" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
