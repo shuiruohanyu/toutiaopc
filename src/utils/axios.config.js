@@ -2,6 +2,7 @@
 import axios from 'axios'
 import jsonBig from 'json-bigint'
 import { Message } from 'element-ui'
+import router from '../router'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 
 // 由于后端数据返回的id为超大类型的数据 所以需要统一处理下  jsonBig是个库
@@ -35,6 +36,8 @@ axios.interceptors.response.use(
         break
       case 401:
         message = 'token过期或未传'
+        window.localStorage.clear()
+        router.push('/login')
         break
       case 403:
         message = '操作失败'
